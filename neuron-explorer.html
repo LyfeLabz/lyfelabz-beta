@@ -509,15 +509,14 @@ body.stem-active .stem-detail {
   <span class="stem-badge" data-tip="Construct an argument supported by evidence that the body systems interact to carry out essential functions of life.">6.MS-LS1-3</span></div>
 </div>
 
-
-  <button class="mode-btn active" id="btn-explore" onclick="setMode('explore')">🔬 Structure</button>
-  <button class="mode-btn" id="btn-signal" onclick="setMode('signal')">⚡ Signal</button>
-  <button class="mode-btn" id="btn-quiz" onclick="setMode('quiz')">🧠 Quiz Me</button>
-</div>
-
 <div class="game-section">
   <div class="game-layout">
     <div class="neuron-container">
+      <div style="display:flex; justify-content:center; gap:0.6rem; margin-bottom:0.75rem;">
+        <button class="mode-btn active" id="btn-explore" onclick="setMode('explore')">🔬 Structure</button>
+        <button class="mode-btn" id="btn-signal" onclick="setMode('signal')">⚡ Signal</button>
+        <button class="mode-btn" id="btn-quiz" onclick="setMode('quiz')">🧠 Quiz Me</button>
+      </div>
       <div class="neuron-frame">
         <svg id="neuronSvg" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" aria-label="Neuron diagram">
           <defs>
