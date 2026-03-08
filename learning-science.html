@@ -530,23 +530,39 @@ body.ls-active .ls-focus {
   <h1>Learning Science</h1>
   <p>Every lesson, extension, and game on LyfeLabz is built around principles from cognitive psychology and the science of learning — not just intuition. Here's what's working under the hood.</p>
 
-  <!-- Hero-level toggle — visible and intentional for educator landing -->
+  <!-- Hero-level toggles — visible and intentional for educator landing -->
   <div style="margin-top:1.6rem;display:flex;flex-direction:column;align-items:center;gap:0.5rem;">
-    <button id="edu-hero-btn" onclick="toggleEduMode()" style="
-      display:inline-flex;align-items:center;gap:0.7rem;
-      font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:800;
-      letter-spacing:0.05em;text-transform:uppercase;
-      border-radius:99px;padding:0.6rem 1.5rem;cursor:pointer;
-      transition:all 0.22s ease;
-      border:1px solid rgba(59,200,232,0.3);
-      background:rgba(59,200,232,0.07);
-      color:rgba(59,200,232,0.65);
-    ">
-      <span id="edu-hero-dot" style="display:inline-block;width:9px;height:9px;border-radius:50%;background:rgba(59,200,232,0.35);transition:all 0.22s;"></span>
-      <span id="edu-hero-label">Enable Educator Mode</span>
-    </button>
-    <div id="edu-hero-hint" style="font-size:0.72rem;color:rgba(255,255,255,0.25);line-height:1.5;">
-      Turns on learning science badges across every activity — for this session only
+    <div style="display:flex;gap:0.65rem;flex-wrap:wrap;justify-content:center;">
+      <button id="edu-hero-btn" onclick="toggleEduMode()" style="
+        display:inline-flex;align-items:center;gap:0.7rem;
+        font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:800;
+        letter-spacing:0.05em;text-transform:uppercase;
+        border-radius:99px;padding:0.6rem 1.5rem;cursor:pointer;
+        transition:all 0.22s ease;
+        border:1px solid rgba(59,200,232,0.3);
+        background:rgba(59,200,232,0.07);
+        color:rgba(59,200,232,0.65);
+      ">
+        <span id="edu-hero-dot" style="display:inline-block;width:9px;height:9px;border-radius:50%;background:rgba(59,200,232,0.35);transition:all 0.22s;"></span>
+        <span id="edu-hero-label">Enable Educator Mode</span>
+      </button>
+      <button id="stem-hero-btn" onclick="toggleStemMode()" style="
+        display:inline-flex;align-items:center;gap:0.7rem;
+        font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:800;
+        letter-spacing:0.05em;text-transform:uppercase;
+        border-radius:99px;padding:0.6rem 1.5rem;cursor:pointer;
+        transition:all 0.22s ease;
+        border:1px solid rgba(46,204,113,0.3);
+        background:rgba(46,204,113,0.07);
+        color:rgba(46,204,113,0.65);
+      ">
+        <span id="stem-hero-dot" style="display:inline-block;width:9px;height:9px;border-radius:50%;background:rgba(46,204,113,0.35);transition:all 0.22s;"></span>
+        <span id="stem-hero-label">Show MA STE Standards</span>
+      </button>
+    </div>
+    <div style="font-size:0.72rem;color:rgba(255,255,255,0.25);line-height:1.6;text-align:center;max-width:420px;">
+      <span id="edu-hero-hint">Badges appear on every lesson &amp; game — this session only</span><br>
+      Standards show Grade 6 MA STE codes on each aligned activity
     </div>
   </div>
 </div>
@@ -558,7 +574,7 @@ body.ls-active .ls-focus {
     <div class="stat-lbl">Principles Used</div>
   </div>
   <div class="stat">
-    <div class="stat-num">21</div>
+    <div class="stat-num">23</div>
     <div class="stat-lbl">Activities Analysed</div>
   </div>
   <div class="stat">
@@ -1008,14 +1024,23 @@ function syncStemToggleUI(isOn) {
   var btn  = document.getElementById('stem-toggle-btn');
   var dot  = document.getElementById('stem-toggle-dot');
   var lbl  = document.getElementById('stem-toggle-label');
+  var hBtn = document.getElementById('stem-hero-btn');
+  var hDot = document.getElementById('stem-hero-dot');
+  var hLbl = document.getElementById('stem-hero-label');
   if (isOn) {
     if (btn) { btn.style.borderColor = 'rgba(46,204,113,0.55)'; btn.style.background = 'rgba(46,204,113,0.14)'; btn.style.color = 'rgba(46,204,113,1)'; }
     if (dot) { dot.style.background = '#2ecc71'; dot.style.boxShadow = '0 0 8px rgba(46,204,113,0.7)'; }
     if (lbl) { lbl.textContent = 'MA STE Standards: On'; }
+    if (hBtn) { hBtn.style.borderColor = 'rgba(46,204,113,0.55)'; hBtn.style.background = 'rgba(46,204,113,0.14)'; hBtn.style.color = 'rgba(46,204,113,1)'; }
+    if (hDot) { hDot.style.background = '#2ecc71'; hDot.style.boxShadow = '0 0 8px rgba(46,204,113,0.7)'; }
+    if (hLbl) { hLbl.textContent = 'MA STE Standards: On'; }
   } else {
     if (btn) { btn.style.borderColor = 'rgba(46,204,113,0.35)'; btn.style.background = 'rgba(46,204,113,0.07)'; btn.style.color = 'rgba(46,204,113,0.7)'; }
     if (dot) { dot.style.background = 'rgba(46,204,113,0.4)'; dot.style.boxShadow = ''; }
     if (lbl) { lbl.textContent = 'Show MA STE Standards'; }
+    if (hBtn) { hBtn.style.borderColor = 'rgba(46,204,113,0.35)'; hBtn.style.background = 'rgba(46,204,113,0.07)'; hBtn.style.color = 'rgba(46,204,113,0.7)'; }
+    if (hDot) { hDot.style.background = 'rgba(46,204,113,0.4)'; hDot.style.boxShadow = ''; }
+    if (hLbl) { hLbl.textContent = 'Show MA STE Standards'; }
   }
   document.body.classList.toggle('stem-active', isOn);
 }
