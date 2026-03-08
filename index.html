@@ -883,9 +883,8 @@
     <a href="learning-science.html" style="color:var(--teal); text-decoration:none; font-size:0.83rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; border:1px solid rgba(59,200,232,0.3); padding:0.3rem 0.9rem; border-radius:99px; transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(59,200,232,0.6)'" onmouseout="this.style.borderColor='rgba(59,200,232,0.3)'">🧠 Why It Works</a>
   </p>
 
-  <!-- ── Educator Mode Toggle ─────────────────────────────────────────
-       Subtle — sits below the main footer links so students scroll past.
-       Toggles learning science badges across all pages for this session.
+  <!-- ── Educator Mode Toggles ─────────────────────────────────────────
+       Sits below footer links. Side-by-side buttons — one per mode.
        Resets automatically when the browser tab is closed.
   ─────────────────────────────────────────────────────────────────── -->
   <div id="edu-toggle-wrap" style="
@@ -895,35 +894,33 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.55rem;
+    gap: 0.6rem;
   ">
     <div style="font-size:0.62rem; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.45);">For Educators</div>
-    <button id="edu-toggle-btn" onclick="toggleEduMode()" style="
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: 'Nunito', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      border-radius: 99px;
-      padding: 0.5rem 1.3rem;
-      cursor: pointer;
-      transition: all 0.22s ease;
-      border: 1px solid rgba(59,200,232,0.8);
-      background: rgba(59,200,232,0.18);
-      color: #3bc8e8;
-    ">
-      <span id="edu-toggle-dot" style="
-        display:inline-block; width:8px; height:8px; border-radius:50%;
-        background: #3bc8e8;
-        transition: background 0.22s, box-shadow 0.22s;
-      "></span>
-      <span id="edu-toggle-label">Show Learning Science Badges</span>
-    </button>
-    <div style="font-size:0.67rem; color:rgba(255,255,255,0.38); max-width:280px; text-align:center; line-height:1.5;" id="edu-toggle-hint">
-      Badges appear on every lesson, extension &amp; game — this session only.
+    <div style="display:flex; gap:0.75rem; flex-wrap:wrap; justify-content:center;">
+      <button id="edu-toggle-btn" onclick="toggleEduMode()" style="
+        display: inline-flex; align-items: center; gap: 0.6rem;
+        font-family: 'Nunito', sans-serif; font-size: 0.8rem; font-weight: 800;
+        letter-spacing: 0.06em; text-transform: uppercase; border-radius: 99px;
+        padding: 0.5rem 1.3rem; cursor: pointer; transition: all 0.22s ease;
+        border: 1px solid rgba(59,200,232,0.8); background: rgba(59,200,232,0.18); color: #3bc8e8;
+      ">
+        <span id="edu-toggle-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3bc8e8;transition:background 0.22s,box-shadow 0.22s;"></span>
+        <span id="edu-toggle-label">Show Learning Science Badges</span>
+      </button>
+      <button id="stem-toggle-btn" onclick="toggleStemMode()" style="
+        display: inline-flex; align-items: center; gap: 0.6rem;
+        font-family: 'Nunito', sans-serif; font-size: 0.8rem; font-weight: 800;
+        letter-spacing: 0.06em; text-transform: uppercase; border-radius: 99px;
+        padding: 0.5rem 1.3rem; cursor: pointer; transition: all 0.22s ease;
+        border: 1px solid rgba(46,204,113,0.7); background: rgba(46,204,113,0.12); color: #2ecc71;
+      ">
+        <span id="stem-toggle-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2ecc71;transition:background 0.22s,box-shadow 0.22s;"></span>
+        <span id="stem-toggle-label">Show MA STE Standards</span>
+      </button>
+    </div>
+    <div style="font-size:0.67rem; color:rgba(255,255,255,0.38); max-width:340px; text-align:center; line-height:1.5;" id="edu-toggle-hint">
+      Badges &amp; standards appear on every lesson, extension &amp; game — this session only.
     </div>
   </div>
 </footer>
@@ -938,7 +935,6 @@ function syncEduToggleUI(isOn) {
   var btn  = document.getElementById('edu-toggle-btn');
   var dot  = document.getElementById('edu-toggle-dot');
   var lbl  = document.getElementById('edu-toggle-label');
-  var hint = document.getElementById('edu-toggle-hint');
   if (!btn) return;
   if (isOn) {
     btn.style.borderColor  = 'rgba(59,200,232,0.55)';
@@ -946,8 +942,7 @@ function syncEduToggleUI(isOn) {
     btn.style.color        = 'rgba(59,200,232,0.95)';
     dot.style.background   = '#3bc8e8';
     dot.style.boxShadow    = '0 0 8px rgba(59,200,232,0.7)';
-    lbl.textContent        = 'Learning Science Badges: On';
-    hint.innerHTML         = 'Badges are visible on all pages. <a href="learning-science.html" style="color:rgba(59,200,232,0.7);text-decoration:none;font-weight:800;">Open Learning Science guide →</a>';
+    lbl.textContent        = 'Learning Science: On';
   } else {
     btn.style.borderColor  = 'rgba(59,200,232,0.8)';
     btn.style.background   = 'rgba(59,200,232,0.18)';
@@ -955,7 +950,6 @@ function syncEduToggleUI(isOn) {
     dot.style.background   = '#3bc8e8';
     dot.style.boxShadow    = 'none';
     lbl.textContent        = 'Show Learning Science Badges';
-    hint.innerHTML         = 'Badges appear on every lesson, extension &amp; game — this session only.';
   }
 }
 
@@ -973,7 +967,40 @@ function toggleEduMode() {
 // Reflect current state on page load
 (function() {
   syncEduToggleUI(sessionStorage.getItem('lyfelabz-ls') === 'on');
+  syncStemToggleUI(sessionStorage.getItem('lyfelabz-stem') === 'on');
 })();
+</script>
+
+<script>
+/* ── MA STE Standards toggle ── */
+function syncStemToggleUI(isOn) {
+  var btn  = document.getElementById('stem-toggle-btn');
+  var dot  = document.getElementById('stem-toggle-dot');
+  var lbl  = document.getElementById('stem-toggle-label');
+  if (!btn) return;
+  if (isOn) {
+    btn.style.borderColor  = 'rgba(46,204,113,0.45)';
+    btn.style.background   = 'rgba(46,204,113,0.08)';
+    btn.style.color        = 'rgba(46,204,113,0.95)';
+    dot.style.background   = '#2ecc71';
+    dot.style.boxShadow    = '0 0 8px rgba(46,204,113,0.7)';
+    lbl.textContent        = 'MA STE Standards: On';
+  } else {
+    btn.style.borderColor  = 'rgba(46,204,113,0.7)';
+    btn.style.background   = 'rgba(46,204,113,0.12)';
+    btn.style.color        = '#2ecc71';
+    dot.style.background   = '#2ecc71';
+    dot.style.boxShadow    = 'none';
+    lbl.textContent        = 'Show MA STE Standards';
+  }
+}
+function toggleStemMode() {
+  var isOn = sessionStorage.getItem('lyfelabz-stem') === 'on';
+  var next = !isOn;
+  if (next) { sessionStorage.setItem('lyfelabz-stem', 'on'); }
+  else       { sessionStorage.removeItem('lyfelabz-stem'); }
+  syncStemToggleUI(next);
+}
 </script>
 
 <!-- Animated Starfield -->

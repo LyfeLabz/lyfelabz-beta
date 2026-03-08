@@ -407,6 +407,28 @@
     </div>
   </div>
 
+  <!-- FOR EDUCATORS -->
+  <div class="content-section">
+    <div class="section-eyebrow">🧑‍🏫 For Educators</div>
+    <h2 class="section-title">Educator Mode</h2>
+    <div class="standards-block" style="margin-bottom:1.25rem;">
+      <p>LyfeLabz includes two optional educator overlays that surface instructional context hidden by default — so students see clean content while teachers can access the layer underneath.</p>
+      <ul class="standards-list" style="margin-top:1.2rem;">
+        <li><strong style="color:#3bc8e8;">Learning Science Badges</strong> — teal badges that appear on every lesson, extension, and game. Each badge names a research-backed learning principle used in that activity (e.g. Retrieval Practice, Dual Coding, Spaced Practice) with a tooltip linking to the source. Visit the <a href="learning-science.html" style="color:#3bc8e8;font-weight:700;">Learning Science</a> page for the full breakdown.</li>
+        <li><strong style="color:#2ecc71;">MA STE Standards</strong> — green badges that display the aligned 2016 Massachusetts Science &amp; Technology/Engineering standard codes for Grade 6 Life Science. An expandable detail card shows the full standard text. Only activities with a mapped standard show these badges.</li>
+      </ul>
+      <p style="margin-top:1.4rem;">Both modes are <strong style="color:var(--text);">session-only</strong> — they reset automatically when the tab is closed, so there's no risk of students seeing them next time.</p>
+    </div>
+    <div style="background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:1.8rem 2rem;text-align:center;">
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1.1rem;letter-spacing:0.04em;">Toggle both modes on for this session from here or from the <a href="index.html" style="color:var(--gold);font-weight:700;">Learning Hub</a> footer.</p>
+      <div style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;">
+        <button onclick="document.getElementById('edu-toggle-btn').click()" style="display:inline-flex;align-items:center;gap:0.55rem;font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;border-radius:99px;padding:0.5rem 1.3rem;cursor:pointer;transition:all 0.22s;border:1px solid rgba(59,200,232,0.6);background:rgba(59,200,232,0.1);color:#3bc8e8;">🔬 Learning Science Badges</button>
+        <button onclick="document.getElementById('stem-toggle-btn').click()" style="display:inline-flex;align-items:center;gap:0.55rem;font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;border-radius:99px;padding:0.5rem 1.3rem;cursor:pointer;transition:all 0.22s;border:1px solid rgba(46,204,113,0.6);background:rgba(46,204,113,0.1);color:#2ecc71;">📋 MA STE Standards</button>
+      </div>
+      <p style="font-size:0.72rem;color:rgba(255,255,255,0.25);margin-top:0.85rem;">Session resets when tab is closed</p>
+    </div>
+  </div>
+
   <!-- WHY LYFELABZ EXISTS -->
   <div class="content-section">
     <div class="section-eyebrow">💡 Mission</div>
@@ -429,10 +451,76 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-name">LYFELABZ</div>
-  <p>Your middle school science hub · lyfelabz.com · <a <a href="works-cited.html" style="color:var(--teal);text-decoration:none;font-size:0.78rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(59,200,232,0.35);background:rgba(59,200,232,0.07);padding:0.3rem 0.9rem;border-radius:99px;">Works Cited</a>&nbsp;&nbsp;<ref="index.html" style="color:var(--gold);text-decoration:none;font-size:0.78rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(245,200,66,0.4);background:rgba(245,200,66,0.08);padding:0.3rem 0.9rem;border-radius:99px;">← Learning Hub</a></p>
+  <p style="margin-bottom:0.4rem;">Your middle school science hub · lyfelabz.com</p>
+  <p style="margin-bottom:1.2rem;">
+    <a href="index.html" style="color:var(--gold);text-decoration:none;font-size:0.78rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(245,200,66,0.4);background:rgba(245,200,66,0.08);padding:0.3rem 0.9rem;border-radius:99px;">← Learning Hub</a>
+  </p>
+
+  <!-- ── Educator Mode Toggles ──────────────────────────────────────── -->
+  <div style="padding-top:1.4rem;border-top:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;align-items:center;gap:0.6rem;">
+    <div style="font-size:0.62rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.45);">For Educators</div>
+    <div style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;">
+      <button id="edu-toggle-btn" onclick="toggleEduMode()" style="display:inline-flex;align-items:center;gap:0.6rem;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;border-radius:99px;padding:0.5rem 1.3rem;cursor:pointer;transition:all 0.22s ease;border:1px solid rgba(59,200,232,0.8);background:rgba(59,200,232,0.18);color:#3bc8e8;">
+        <span id="edu-toggle-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3bc8e8;transition:background 0.22s,box-shadow 0.22s;"></span>
+        <span id="edu-toggle-label">Show Learning Science Badges</span>
+      </button>
+      <button id="stem-toggle-btn" onclick="toggleStemMode()" style="display:inline-flex;align-items:center;gap:0.6rem;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;border-radius:99px;padding:0.5rem 1.3rem;cursor:pointer;transition:all 0.22s ease;border:1px solid rgba(46,204,113,0.7);background:rgba(46,204,113,0.12);color:#2ecc71;">
+        <span id="stem-toggle-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2ecc71;transition:background 0.22s,box-shadow 0.22s;"></span>
+        <span id="stem-toggle-label">Show MA STE Standards</span>
+      </button>
+    </div>
+    <div style="font-size:0.67rem;color:rgba(255,255,255,0.38);max-width:340px;text-align:center;line-height:1.5;">
+      Badges &amp; standards appear on every lesson, extension &amp; game — this session only.
+    </div>
+  </div>
 </footer>
 
-<!-- Starfield -->
+<script>
+function syncEduToggleUI(isOn) {
+  var btn = document.getElementById('edu-toggle-btn');
+  var dot = document.getElementById('edu-toggle-dot');
+  var lbl = document.getElementById('edu-toggle-label');
+  if (!btn) return;
+  if (isOn) {
+    btn.style.borderColor = 'rgba(59,200,232,0.55)'; btn.style.background = 'rgba(59,200,232,0.12)'; btn.style.color = 'rgba(59,200,232,0.95)';
+    dot.style.background = '#3bc8e8'; dot.style.boxShadow = '0 0 8px rgba(59,200,232,0.7)';
+    lbl.textContent = 'Learning Science: On';
+  } else {
+    btn.style.borderColor = 'rgba(59,200,232,0.8)'; btn.style.background = 'rgba(59,200,232,0.18)'; btn.style.color = '#3bc8e8';
+    dot.style.background = '#3bc8e8'; dot.style.boxShadow = 'none';
+    lbl.textContent = 'Show Learning Science Badges';
+  }
+}
+function toggleEduMode() {
+  var next = sessionStorage.getItem('lyfelabz-ls') !== 'on';
+  next ? sessionStorage.setItem('lyfelabz-ls','on') : sessionStorage.removeItem('lyfelabz-ls');
+  syncEduToggleUI(next);
+}
+function syncStemToggleUI(isOn) {
+  var btn = document.getElementById('stem-toggle-btn');
+  var dot = document.getElementById('stem-toggle-dot');
+  var lbl = document.getElementById('stem-toggle-label');
+  if (!btn) return;
+  if (isOn) {
+    btn.style.borderColor = 'rgba(46,204,113,0.45)'; btn.style.background = 'rgba(46,204,113,0.08)'; btn.style.color = 'rgba(46,204,113,0.95)';
+    dot.style.background = '#2ecc71'; dot.style.boxShadow = '0 0 8px rgba(46,204,113,0.7)';
+    lbl.textContent = 'MA STE Standards: On';
+  } else {
+    btn.style.borderColor = 'rgba(46,204,113,0.7)'; btn.style.background = 'rgba(46,204,113,0.12)'; btn.style.color = '#2ecc71';
+    dot.style.background = '#2ecc71'; dot.style.boxShadow = 'none';
+    lbl.textContent = 'Show MA STE Standards';
+  }
+}
+function toggleStemMode() {
+  var next = sessionStorage.getItem('lyfelabz-stem') !== 'on';
+  next ? sessionStorage.setItem('lyfelabz-stem','on') : sessionStorage.removeItem('lyfelabz-stem');
+  syncStemToggleUI(next);
+}
+(function() {
+  syncEduToggleUI(sessionStorage.getItem('lyfelabz-ls') === 'on');
+  syncStemToggleUI(sessionStorage.getItem('lyfelabz-stem') === 'on');
+})();
+</script>
 <script>
   const canvas = document.getElementById('stars');
   const ctx = canvas.getContext('2d');
