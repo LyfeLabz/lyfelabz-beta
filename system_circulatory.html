@@ -339,6 +339,51 @@ body.stem-active .stem-detail {
   font-size:0.83rem; font-weight:600;
   color:rgba(232,240,247,0.72); line-height:1.55;
 }
+/* ── Stem badge tooltip (mirrors ls-badge pattern) ─────────────── */
+.stem-badge { position: relative; cursor: default; }
+.stem-badge[data-tip]::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 9px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  padding: 0.5rem 0.75rem;
+  background: #0c1a28;
+  color: #b8ccd8;
+  font-size: 0.68rem;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0;
+  white-space: normal;
+  text-align: center;
+  border-radius: 9px;
+  border: 1px solid rgba(46,204,113,0.2);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.55);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 999;
+}
+.stem-badge[data-tip]:hover::after { opacity: 1; }
+.stem-badge[data-tip]::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 3px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(46,204,113,0.2);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 999;
+}
+.stem-badge[data-tip]:hover::before { opacity: 1; }
+@media (max-width: 480px) {
+  .stem-badge[data-tip]::after,
+  .stem-badge[data-tip]::before { display: none; }
+}
 </style>
 </head>
 <body>
@@ -375,16 +420,8 @@ body.stem-active .stem-detail {
 </div>
 <div class="stem-focus">
   <span class="stem-focus-label">📋 MA STE Standards · Grade 6</span>
-  <span class="stem-badge">6.MS-LS1-3</span>
+  <span class="stem-badge" data-tip="Construct an argument supported by evidence that the body systems interact to carry out essential functions of life.">6.MS-LS1-3</span>
 </div>
-<div class="stem-detail">
-  <button class="stem-show-btn" onclick="var d=this.closest('.stem-detail');d.classList.toggle('stem-open');this.textContent=d.classList.contains('stem-open')?'▴ Hide details':'▾ Show details'">▾ Show details</button>
-  <div class="stem-detail-body">
-    <div class="stem-std-row">
-      <span class="stem-std-code">6.MS-LS1-3</span>
-      <span class="stem-std-text">Construct an argument supported by evidence that the body systems interact to carry out essential functions of life.</span>
-    </div>
-  </div>
 </div>
   </div>
 </div>
