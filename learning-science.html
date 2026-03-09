@@ -557,12 +557,13 @@ body.ls-active .ls-focus {
         color:rgba(46,204,113,0.65);
       ">
         <span id="stem-hero-dot" style="display:inline-block;width:9px;height:9px;border-radius:50%;background:rgba(46,204,113,0.35);transition:all 0.22s;"></span>
-        <span id="stem-hero-label">Show MA STE Standards</span>
+        <span id="stem-hero-label">Show MA STE Frameworks</span>
       </button>
     </div>
-    <div style="font-size:0.72rem;color:rgba(255,255,255,0.25);line-height:1.6;text-align:center;max-width:420px;">
-      <span id="edu-hero-hint">Badges appear on every lesson &amp; game — this session only</span><br>
-      Standards show Grade 6 MA STE codes on each aligned activity
+    <div style="font-size:0.82rem;color:rgba(255,255,255,0.45);line-height:1.8;text-align:center;max-width:580px;">
+      Enabling Educator Mode highlights the cognitive strategy at work in each activity.<br>
+      Enabling MA STE Frameworks reveals the Grade 6 alignment standards behind each activity.<br>
+      Toggling either mode on applies it site-wide. Closing the tab resets everything.
     </div>
   </div>
 </div>
@@ -950,7 +951,7 @@ body.ls-active .ls-focus {
       </button>
       <button id="stem-toggle-btn" onclick="toggleStemMode()" style="display:inline-flex;align-items:center;gap:0.6rem;font-family:'Nunito',sans-serif;font-size:0.78rem;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;border-radius:99px;padding:0.45rem 1.15rem;cursor:pointer;transition:all 0.22s ease;border:1px solid rgba(46,204,113,0.35);background:rgba(46,204,113,0.07);color:rgba(46,204,113,0.7);">
         <span id="stem-toggle-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:rgba(46,204,113,0.4);transition:background 0.22s,box-shadow 0.22s;"></span>
-        <span id="stem-toggle-label">Show MA STE Standards</span>
+        <span id="stem-toggle-label">Show MA STE Frameworks</span>
       </button>
     </div>
     <div style="font-size:0.67rem;color:rgba(255,255,255,0.18);max-width:320px;text-align:center;line-height:1.5;" id="edu-toggle-hint">
@@ -1030,17 +1031,17 @@ function syncStemToggleUI(isOn) {
   if (isOn) {
     if (btn) { btn.style.borderColor = 'rgba(46,204,113,0.55)'; btn.style.background = 'rgba(46,204,113,0.14)'; btn.style.color = 'rgba(46,204,113,1)'; }
     if (dot) { dot.style.background = '#2ecc71'; dot.style.boxShadow = '0 0 8px rgba(46,204,113,0.7)'; }
-    if (lbl) { lbl.textContent = 'MA STE Standards: On'; }
+    if (lbl) { lbl.textContent = 'MA STE Frameworks: On'; }
     if (hBtn) { hBtn.style.borderColor = 'rgba(46,204,113,0.55)'; hBtn.style.background = 'rgba(46,204,113,0.14)'; hBtn.style.color = 'rgba(46,204,113,1)'; }
     if (hDot) { hDot.style.background = '#2ecc71'; hDot.style.boxShadow = '0 0 8px rgba(46,204,113,0.7)'; }
-    if (hLbl) { hLbl.textContent = 'MA STE Standards: On'; }
+    if (hLbl) { hLbl.textContent = 'MA STE Frameworks: On'; }
   } else {
     if (btn) { btn.style.borderColor = 'rgba(46,204,113,0.35)'; btn.style.background = 'rgba(46,204,113,0.07)'; btn.style.color = 'rgba(46,204,113,0.7)'; }
     if (dot) { dot.style.background = 'rgba(46,204,113,0.4)'; dot.style.boxShadow = ''; }
-    if (lbl) { lbl.textContent = 'Show MA STE Standards'; }
+    if (lbl) { lbl.textContent = 'Show MA STE Frameworks'; }
     if (hBtn) { hBtn.style.borderColor = 'rgba(46,204,113,0.35)'; hBtn.style.background = 'rgba(46,204,113,0.07)'; hBtn.style.color = 'rgba(46,204,113,0.7)'; }
     if (hDot) { hDot.style.background = 'rgba(46,204,113,0.4)'; hDot.style.boxShadow = ''; }
-    if (hLbl) { hLbl.textContent = 'Show MA STE Standards'; }
+    if (hLbl) { hLbl.textContent = 'Show MA STE Frameworks'; }
   }
   document.body.classList.toggle('stem-active', isOn);
 }
