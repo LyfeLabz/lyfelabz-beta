@@ -275,20 +275,21 @@
   #systems { background: var(--dark); }
   .systems-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.2rem;
     margin-top: 2.5rem;
   }
   .system-card {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 18px;
-    padding: 2rem;
+    padding: 1.6rem 1.5rem 1.4rem;
     transition: all 0.3s;
     position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    gap: 0.4rem;
   }
   .system-card::before {
     content: '';
@@ -995,6 +996,129 @@ body.stem-active .stem-detail {
   .stem-badge[data-tip]::before { display: none; }
 }
 </style>
+
+<style>
+/* ===== DISEASES & DISORDERS SECTION ===== */
+#diseases { background: var(--dark2); }
+
+.diseases-intro-banner {
+  background: linear-gradient(135deg, rgba(192,57,43,0.1) 0%, rgba(155,89,182,0.07) 100%);
+  border: 1px solid rgba(192,57,43,0.25);
+  border-radius: 18px;
+  padding: 1.6rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+.dib-icon { font-size: 2.6rem; flex-shrink: 0; }
+.dib-body { flex: 1; min-width: 200px; }
+.dib-tag {
+  display: inline-block;
+  font-size: 0.7rem; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase;
+  color: #e8837a; background: rgba(192,57,43,0.15);
+  border: 1px solid rgba(192,57,43,0.3);
+  padding: 0.22rem 0.8rem; border-radius: 99px; margin-bottom: 0.55rem;
+}
+.dib-body h3 {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.2rem; margin-bottom: 0.3rem; color: var(--text);
+}
+.dib-body p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+
+.diseases-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.2rem;
+}
+.dis-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1.6rem 1.5rem 1.4rem;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+.dis-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+/* Per-system accent bars matching interactive map cards */
+.dis-card.dis-circulatory::before { background: linear-gradient(90deg, #e74c3c, #e91e63); }
+.dis-card.dis-digestive::before { background: linear-gradient(90deg, #ff9800, #f44336); }
+.dis-card.dis-respiratory::before { background: linear-gradient(90deg, var(--accent), var(--teal)); }
+.dis-card.dis-excretory::before { background: linear-gradient(90deg, #8bc34a, #009688); }
+.dis-card.dis-skeletal::before { background: linear-gradient(90deg, #bdbdbd, #78909c); }
+.dis-card.dis-muscular::before { background: linear-gradient(90deg, #e91e63, #9c27b0); }
+.dis-card.dis-nervous::before { background: linear-gradient(90deg, #673ab7, var(--accent2)); }
+.dis-card.dis-immune::before { background: linear-gradient(90deg, var(--accent2), var(--teal)); }
+
+/* Coming-soon cards get a muted bar */
+.dis-card.soon-dis { opacity: 0.55; }
+.dis-card.soon-dis::before    { background: rgba(255,255,255,0.1); }
+
+.dis-card.active-dis:hover {
+  transform: translateY(-4px);
+  border-color: rgba(192,57,43,0.45);
+  box-shadow: 0 12px 32px rgba(192,57,43,0.18);
+}
+.dis-icon { font-size: 2rem; margin-bottom: 0.2rem; }
+.dis-name {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.15rem;
+  color: var(--text);
+  line-height: 1.2;
+}
+.dis-tagline {
+  font-size: 0.8rem; font-weight: 700;
+  color: #e8837a;
+  margin-bottom: 0.1rem;
+}
+.dis-desc {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  flex: 1;
+}
+.dis-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  align-self: flex-start;
+  margin-top: 0.8rem;
+  padding: 0.38rem 1.1rem;
+  border-radius: 99px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  background: rgba(59,200,232,0.07);
+  border: 1.5px solid rgba(59,200,232,0.55);
+  color: #e8f9fd;
+  box-shadow: 0 0 14px rgba(59,200,232,0.28), 0 0 30px rgba(59,200,232,0.10), inset 0 0 10px rgba(59,200,232,0.07);
+  transition: all 0.22s;
+}
+.dis-link:hover {
+  background: rgba(59,200,232,0.14);
+  border-color: rgba(59,200,232,0.90);
+  color: #ffffff;
+  box-shadow: 0 0 22px rgba(59,200,232,0.50), 0 0 45px rgba(59,200,232,0.20), inset 0 0 14px rgba(59,200,232,0.10);
+}
+.dis-coming-label {
+  font-size: 0.74rem; font-weight: 700;
+  color: var(--text-muted); opacity: 0.6;
+  margin-top: 0.7rem; letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+</style>
 </head>
 <body>
 
@@ -1005,6 +1129,7 @@ body.stem-active .stem-detail {
     <li><a href="#hierarchy">Hierarchy</a></li>
     <li><a href="#systems">Systems</a></li>
     <li><a href="#connections">Connections</a></li>
+    <li><a href="#diseases">Diseases</a></li>
     <li><a href="#watch">Watch</a></li>
     <li><a href="#quiz">Quiz</a></li>
   </ul>
@@ -1098,7 +1223,7 @@ body.stem-active .stem-detail {
         <div class="system-name">Circulatory System</div>
         <div class="system-summary">Transports oxygen, nutrients, and waste throughout the body.</div>
         <div class="system-desc">The <strong>heart</strong> pumps blood around the body through <strong>veins</strong> and <strong>arteries</strong>. Blood acts as the delivery service — bringing what cells need and carrying away what they don't.</div>
-        <a href="system_circulatory.html" class="explore-btn">Explore 🫀 Interactive Map</a>
+        <a href="system_circulatory.html" class="explore-btn">Explore Interactive Map</a>
       </div>
 
       <div class="system-card digestive">
@@ -1106,7 +1231,7 @@ body.stem-active .stem-detail {
         <div class="system-name">Digestive System</div>
         <div class="system-summary">Breaks down food into nutrients and energy for the body to absorb.</div>
         <div class="system-desc">Food travels from the <strong>mouth</strong> → <strong>stomach</strong> → <strong>small intestine</strong>, where nutrients are absorbed into the bloodstream. The large intestine removes solid waste.</div>
-        <a href="system_digestive.html" class="explore-btn">Explore 🫄 Interactive Map</a>
+        <a href="system_digestive.html" class="explore-btn">Explore Interactive Map</a>
       </div>
 
       <div class="system-card respiratory">
@@ -1114,7 +1239,7 @@ body.stem-active .stem-detail {
         <div class="system-name">Respiratory System</div>
         <div class="system-summary">Moves air in and out of the body through breathing.</div>
         <div class="system-desc">We inhale air through the <strong>nose</strong> and <strong>mouth</strong>, down to the <strong>lungs</strong>. Oxygen passes into the blood, and carbon dioxide waste is exhaled out.</div>
-        <a href="system_respiratory.html" class="explore-btn">Explore 🫁 Interactive Map</a>
+        <a href="system_respiratory.html" class="explore-btn">Explore Interactive Map</a>
       </div>
 
       <div class="system-card excretory">
@@ -1122,7 +1247,7 @@ body.stem-active .stem-detail {
         <div class="system-name">Excretory System</div>
         <div class="system-summary">Removes solid, liquid, and gaseous waste from the body.</div>
         <div class="system-desc">Three types of waste removal keep the body in balance: the <strong>large intestine</strong> removes solid waste, the <strong>bladder</strong> stores and removes liquid waste, and the <strong>lungs</strong> remove gaseous CO₂. Removing waste maintains <strong>homeostasis</strong>.</div>
-        <a href="system_excretory.html" class="explore-btn">Explore 🚽 Interactive Map</a>
+        <a href="system_excretory.html" class="explore-btn">Explore Interactive Map</a>
       </div>
 
       <div class="system-card skeletal">
@@ -1130,7 +1255,7 @@ body.stem-active .stem-detail {
         <div class="system-name">Skeletal System</div>
         <div class="system-summary">Provides structure, supports movement, and protects organs.</div>
         <div class="system-desc"><strong>Bones</strong> give the body its shape. <strong>Ligaments</strong> connect bones to bones. <strong>Tendons</strong> connect bones to muscles. Bone marrow — found inside bones — produces blood cells.</div>
-        <a href="system_skeletal.html" class="explore-btn">Explore 🦴 Interactive Map</a>
+        <a href="system_skeletal.html" class="explore-btn">Explore Interactive Map</a>
       </div>
 
       <div class="system-card muscular">
@@ -1138,7 +1263,7 @@ body.stem-active .stem-detail {
         <div class="system-name">Muscular System</div>
         <div class="system-summary">Allows movement of the body and movement of materials through the body.</div>
         <div class="system-desc">Three types: <strong>Cardiac</strong> muscle pumps blood (heart). <strong>Skeletal</strong> muscle connects to bones for movement (hamstrings). <strong>Smooth</strong> muscle moves materials through organs (small intestine).</div>
-        <a href="system_muscular.html" class="explore-btn">Explore 💪 Interactive Map</a>
+        <a href="system_muscular.html" class="explore-btn">Explore Interactive Map</a>
       </div>
 
       <div class="system-card nervous">
@@ -1146,7 +1271,7 @@ body.stem-active .stem-detail {
         <div class="system-name">Nervous System</div>
         <div class="system-summary">Detects, interprets, and responds to information from the environment.</div>
         <div class="system-desc">The <strong>brain</strong> is the control center. The <strong>spinal cord</strong> relays signals between brain and body. <strong>Neurons</strong> are specialized cells that carry electrical signals throughout the body at high speed.</div>
-        <a href="system_nervous.html" class="explore-btn">Explore 🧠 Interactive Map</a>
+        <a href="system_nervous.html" class="explore-btn">Explore Interactive Map</a>
       </div>
 
       <div class="system-card immune">
@@ -1154,7 +1279,7 @@ body.stem-active .stem-detail {
         <div class="system-name">Immune System</div>
         <div class="system-summary">Defends the body against harmful bacteria, viruses, and parasites.</div>
         <div class="system-desc"><strong>White blood cells</strong> are produced in our bones and attack foreign invaders. <strong>Lymph nodes</strong> filter out germs that accumulate in cells, tissues, and blood, preventing infection from spreading.</div>
-        <a href="system_immune.html" class="explore-btn">Explore 🛡️ Interactive Map</a>
+        <a href="system_immune.html" class="explore-btn">Explore Interactive Map</a>
       </div>
 
     </div>
@@ -1349,6 +1474,102 @@ body.stem-active .stem-detail {
     </div>
   </div>
 </section>
+
+<!-- EXTENSION BANNER -->
+<!-- DISEASES & DISORDERS -->
+<section id="diseases">
+  <div class="container">
+    <span class="section-label" style="background:rgba(192,57,43,0.12);border-color:rgba(192,57,43,0.35);color:#e8837a;">Diseases &amp; Disorders</span>
+    <h2 class="section-title">When Things Go Wrong 🩺</h2>
+    <p class="section-desc">Body systems are remarkable — but they can break down. Explore each system to see what diseases can affect it, how dysfunction spreads, and how it ultimately affects a person.</p>
+
+    <div class="diseases-intro-banner">
+      <div class="dib-icon">🔬</div>
+      <div class="dib-body">
+        <div class="dib-tag">How to Read These Pages</div>
+        <h3>Three Levels of Impact</h3>
+        <p>Each disease is explained at three levels: <strong>🔬 What Goes Wrong</strong> (the part itself) → <strong>📡 How It Spreads</strong> (across the system) → <strong>🧍 How You Feel It</strong> (the whole person). This helps you see how a small problem in one part can ripple through the entire body.</p>
+      </div>
+    </div>
+
+    <div class="diseases-grid">
+
+      <!-- CIRCULATORY -->
+      <div class="dis-card active-dis dis-circulatory">
+        <span class="dis-icon">🫀</span>
+        <div class="dis-name">Circulatory System</div>
+        <div class="dis-tagline">Heart · Blood · Vessels</div>
+        <div class="dis-desc">From heart attacks and arrhythmias to anemia and blood clots — explore what happens when the body's delivery network breaks down.</div>
+        <a href="disease_circulatory.html" class="dis-link">Explore Disease Maps</a>
+      </div>
+
+      <!-- DIGESTIVE -->
+      <div class="dis-card active-dis dis-digestive">
+        <span class="dis-icon">🫄</span>
+        <div class="dis-name">Digestive System</div>
+        <div class="dis-tagline">Stomach · Intestines · Liver</div>
+        <div class="dis-desc">Crohn's disease, ulcers, liver failure, and more — when the body can't absorb what it needs.</div>
+        <a href="disease_digestive.html" class="dis-link">Explore Disease Maps</a>
+      </div>
+
+      <!-- RESPIRATORY -->
+      <div class="dis-card active-dis dis-respiratory">
+        <span class="dis-icon">🫁</span>
+        <div class="dis-name">Respiratory System</div>
+        <div class="dis-tagline">Lungs · Airways · Gas Exchange</div>
+        <div class="dis-desc">Asthma, pneumonia, COPD, and more — how breathing disorders affect oxygen delivery to every cell.</div>
+        <a href="disease_respiratory.html" class="dis-link">Explore Disease Maps</a>
+      </div>
+
+      <!-- EXCRETORY -->
+      <div class="dis-card active-dis dis-excretory">
+        <span class="dis-icon">🚽</span>
+        <div class="dis-name">Excretory System</div>
+        <div class="dis-tagline">Kidneys · Lungs · Large Intestine</div>
+        <div class="dis-desc">Kidney disease, kidney stones, and what happens when the body can't remove its own waste.</div>
+        <a href="disease_excretory.html" class="dis-link">Explore Disease Maps</a>
+      </div>
+
+      <!-- SKELETAL -->
+      <div class="dis-card active-dis dis-skeletal">
+        <span class="dis-icon">🦴</span>
+        <div class="dis-name">Skeletal System</div>
+        <div class="dis-tagline">Bones · Joints · Marrow</div>
+        <div class="dis-desc">Osteoporosis, arthritis, fractures, and bone marrow disorders — when the body's framework weakens.</div>
+        <a href="disease_skeletal.html" class="dis-link">Explore Disease Maps</a>
+      </div>
+
+      <!-- MUSCULAR -->
+      <div class="dis-card active-dis dis-muscular">
+        <span class="dis-icon">💪</span>
+        <div class="dis-name">Muscular System</div>
+        <div class="dis-tagline">Cardiac · Skeletal · Smooth Muscle</div>
+        <div class="dis-desc">Muscular dystrophy, myasthenia gravis, and what happens when muscle tissue stops working properly.</div>
+        <a href="disease_muscular.html" class="dis-link">Explore Disease Maps</a>
+      </div>
+
+      <!-- NERVOUS -->
+      <div class="dis-card active-dis dis-nervous">
+        <span class="dis-icon">🧠</span>
+        <div class="dis-name">Nervous System</div>
+        <div class="dis-tagline">Brain · Spinal Cord · Neurons</div>
+        <div class="dis-desc">Multiple sclerosis, epilepsy, stroke, and Parkinson's — disorders of the body's master controller.</div>
+        <a href="disease_nervous.html" class="dis-link">Explore Disease Maps</a>
+      </div>
+
+      <!-- IMMUNE -->
+      <div class="dis-card active-dis dis-immune">
+        <span class="dis-icon">🛡️</span>
+        <div class="dis-name">Immune System</div>
+        <div class="dis-tagline">White Blood Cells · Lymph Nodes</div>
+        <div class="dis-desc">Allergies, autoimmune diseases, and immunodeficiencies — when the body attacks itself or can't defend at all.</div>
+        <a href="disease_immune.html" class="dis-link">Explore Disease Maps</a>
+      </div>
+
+    </div>    </div>
+  </div>
+</section>
+
 
 <!-- EXTENSION BANNER -->
 <div style="background:var(--dark2); padding: 0 2rem 4rem;">
