@@ -1899,36 +1899,39 @@ buildQuiz(1);
     var body   = descEl ? descEl.textContent.trim() : '';
     if (!body) return;
 
-    var voice = getPreferredVoice();
-
-    function makeUtt(text, rate, vol) {
-      var u = new SpeechSynthesisUtterance(text);
-      u.rate = rate; u.pitch = 1; u.lang = 'en-US'; u.volume = vol;
-      if (voice) u.voice = voice;
-      return u;
-    }
-
-    var uttTitle = makeUtt(title, 0.82, 1);
-    var uttPause = makeUtt('...', 0.1,  0);   // silent ~700ms gap
-    var uttBody  = makeUtt(body,  0.82, 1);
-
-    uttBody.onend = function() {
-      if (activeBtn) resetBtn(activeBtn);
-      activeCard = null; activeBtn = null;
-    };
-    uttBody.onerror = function() {
-      if (activeBtn) resetBtn(activeBtn);
-      activeCard = null; activeBtn = null;
-    };
-
     activeCard = cardId;
     activeBtn  = btn;
     btn.textContent = '⏸ Pause';
     btn.classList.add('speaking');
 
-    window.speechSynthesis.speak(uttTitle);
-    window.speechSynthesis.speak(uttPause);
-    window.speechSynthesis.speak(uttBody);
+    // Small delay required — Chrome silently drops speak() called immediately after cancel()
+    setTimeout(function() {
+      var voice = getPreferredVoice();
+
+      function makeUtt(text, rate, vol) {
+        var u = new SpeechSynthesisUtterance(text);
+        u.rate = rate; u.pitch = 1; u.lang = 'en-US'; u.volume = vol;
+        if (voice) u.voice = voice;
+        return u;
+      }
+
+      var uttTitle = makeUtt(title, 0.82, 1);
+      var uttPause = makeUtt('...', 0.1,  0);
+      var uttBody  = makeUtt(body,  0.82, 1);
+
+      uttBody.onend = function() {
+        if (activeBtn) resetBtn(activeBtn);
+        activeCard = null; activeBtn = null;
+      };
+      uttBody.onerror = function() {
+        if (activeBtn) resetBtn(activeBtn);
+        activeCard = null; activeBtn = null;
+      };
+
+      window.speechSynthesis.speak(uttTitle);
+      window.speechSynthesis.speak(uttPause);
+      window.speechSynthesis.speak(uttBody);
+    }, 100);
   }
 
   window.toggleCardRead = function(cardId, btn) {

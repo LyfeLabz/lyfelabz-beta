@@ -1363,30 +1363,29 @@ buildQuiz(1);
 
   // Speak title, then pause, then body — queued as three utterances
   function speakWithPause(title, body, onDone, onErr) {
-    var voice = getPreferredVoice();
+    // Small delay required — Chrome silently drops speak() called immediately after cancel()
+    setTimeout(function() {
+      var voice = getPreferredVoice();
 
-    var uttTitle = new SpeechSynthesisUtterance(title);
-    uttTitle.rate = 0.82; uttTitle.pitch = 1; uttTitle.lang = 'en-US';
-    if (voice) uttTitle.voice = voice;
+      function makeUtt(text, rate, vol) {
+        var u = new SpeechSynthesisUtterance(text);
+        u.rate = rate; u.pitch = 1; u.lang = 'en-US'; u.volume = vol;
+        if (voice) u.voice = voice;
+        return u;
+      }
 
-    // Silent pause utterance — spoken at 0.1x rate so "..." takes ~700ms
-    var uttPause = new SpeechSynthesisUtterance('...');
-    uttPause.rate = 0.1; uttPause.pitch = 1; uttPause.lang = 'en-US';
-    if (voice) uttPause.voice = voice;
-    uttPause.volume = 0;
+      var uttTitle = makeUtt(title, 0.82, 1);
+      var uttPause = makeUtt('...', 0.1,  0);  // silent ~700ms gap
+      var uttBody  = makeUtt(body,  0.82, 1);
 
-    var uttBody = new SpeechSynthesisUtterance(body);
-    uttBody.rate = 0.82; uttBody.pitch = 1; uttBody.lang = 'en-US';
-    if (voice) uttBody.voice = voice;
-    uttBody.onend   = onDone;
-    uttBody.onerror = onErr;
+      uttBody.onend   = onDone;
+      uttBody.onerror = onErr;
+      utterance = uttBody;
 
-    // Store all three so Chrome's 15s nudge works on the right one
-    utterance = uttBody;
-
-    window.speechSynthesis.speak(uttTitle);
-    window.speechSynthesis.speak(uttPause);
-    window.speechSynthesis.speak(uttBody);
+      window.speechSynthesis.speak(uttTitle);
+      window.speechSynthesis.speak(uttPause);
+      window.speechSynthesis.speak(uttBody);
+    }, 100);
   }
 
   // Expose helpers globally so toggleCycleRead (outer script) can reach them
