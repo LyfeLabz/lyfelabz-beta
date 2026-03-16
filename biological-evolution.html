@@ -1324,6 +1324,71 @@ buildQuiz(1);
     utterance  = null;
   }
 
+  // Extract card title and body separately
+  function getCardParts(cardId) {
+    var card = document.getElementById(cardId);
+    if (!card) return { title: '', body: '' };
+    var titleEl = card.querySelector('.card-title');
+    var title = titleEl ? titleEl.textContent.trim() : '';
+
+    var clone = card.cloneNode(true);
+    var btn = clone.querySelector('.read-aloud-btn');
+    if (btn) btn.remove();
+    var svg = clone.querySelector('svg');
+    if (svg) svg.remove();
+    var inst = clone.querySelector('.ns-cycle-instructions');
+    if (inst) inst.remove();
+    var cycleWrap = clone.querySelector('.ns-cycle-wrap');
+    if (cycleWrap) cycleWrap.remove();
+    var titleClone = clone.querySelector('.card-title');
+    if (titleClone) titleClone.remove();
+
+    var raw = clone.innerText || clone.textContent || '';
+    var body = raw
+      .replace(/[🔊🦠⚡🏆👶📈🔄🐦🦒💡🐸🔀🧬🦋]/gu, '')
+      .replace(/[\u{1F300}-\u{1FFFF}]/gu, '')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
+    return { title: title, body: body };
+  }
+
+  function getPreferredVoice() {
+    var voices = window.speechSynthesis.getVoices();
+    return voices.find(function(v) {
+      return /Samantha|Karen|Google US English|Microsoft Aria|Zira/i.test(v.name);
+    }) || voices.find(function(v) {
+      return v.lang === 'en-US' && !v.name.toLowerCase().includes('compact');
+    });
+  }
+
+  // Speak title, then pause, then body — queued as three utterances
+  function speakWithPause(title, body, onDone, onErr) {
+    var voice = getPreferredVoice();
+
+    var uttTitle = new SpeechSynthesisUtterance(title);
+    uttTitle.rate = 0.82; uttTitle.pitch = 1; uttTitle.lang = 'en-US';
+    if (voice) uttTitle.voice = voice;
+
+    // Silent pause utterance — spoken at 0.1x rate so "..." takes ~700ms
+    var uttPause = new SpeechSynthesisUtterance('...');
+    uttPause.rate = 0.1; uttPause.pitch = 1; uttPause.lang = 'en-US';
+    if (voice) uttPause.voice = voice;
+    uttPause.volume = 0;
+
+    var uttBody = new SpeechSynthesisUtterance(body);
+    uttBody.rate = 0.82; uttBody.pitch = 1; uttBody.lang = 'en-US';
+    if (voice) uttBody.voice = voice;
+    uttBody.onend   = onDone;
+    uttBody.onerror = onErr;
+
+    // Store all three so Chrome's 15s nudge works on the right one
+    utterance = uttBody;
+
+    window.speechSynthesis.speak(uttTitle);
+    window.speechSynthesis.speak(uttPause);
+    window.speechSynthesis.speak(uttBody);
+  }
+
   window.toggleRead = function(cardId, btn) {
     // If this card is currently speaking, toggle pause/resume
     if (activeCard === cardId) {
@@ -1338,7 +1403,6 @@ buildQuiz(1);
         btn.classList.remove('speaking');
         btn.classList.add('paused');
       } else {
-        // Finished naturally — reset
         stopAll();
       }
       return;
@@ -1347,40 +1411,20 @@ buildQuiz(1);
     // Different card clicked — stop whatever was playing
     stopAll();
 
-    var text = getCardText(cardId);
-    if (!text) return;
-
-    utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate  = 0.82;   // Slower for accessibility / IEP support
-    utterance.pitch = 1;
-    utterance.lang  = 'en-US';
-
-    // Prefer a natural-sounding voice if available
-    var voices = window.speechSynthesis.getVoices();
-    var preferred = voices.find(function(v) {
-      return /Samantha|Karen|Google US English|Microsoft Aria|Zira/i.test(v.name);
-    }) || voices.find(function(v) {
-      return v.lang === 'en-US' && !v.name.toLowerCase().includes('compact');
-    });
-    if (preferred) utterance.voice = preferred;
-
-    utterance.onend = function() {
-      if (activeBtn) resetBtn(activeBtn);
-      activeCard = null;
-      activeBtn  = null;
-    };
-    utterance.onerror = function() {
-      if (activeBtn) resetBtn(activeBtn);
-      activeCard = null;
-      activeBtn  = null;
-    };
+    var parts = getCardParts(cardId);
+    if (!parts.body) return;
 
     activeCard = cardId;
     activeBtn  = btn;
     btn.textContent = '⏸ Pause';
     btn.classList.add('speaking');
 
-    window.speechSynthesis.speak(utterance);
+    speakWithPause(
+      parts.title,
+      parts.body,
+      function() { if (activeBtn) resetBtn(activeBtn); activeCard = null; activeBtn = null; },
+      function() { if (activeBtn) resetBtn(activeBtn); activeCard = null; activeBtn = null; }
+    );
   };
 
   // Stop speech if user navigates away
@@ -1490,34 +1534,20 @@ window.toggleCycleRead = function(btn) {
   const titleEl = document.getElementById('cy-detail-title');
   const bodyEl  = document.getElementById('cy-detail-body');
   if (!titleEl || !bodyEl) return;
-  const text = (titleEl.textContent + '. ' + bodyEl.textContent).trim();
-  if (!text) return;
-
-  const utt = new SpeechSynthesisUtterance(text);
-  utt.rate  = 0.82;
-  utt.pitch = 1;
-  utt.lang  = 'en-US';
-  const voices = window.speechSynthesis.getVoices();
-  const preferred = voices.find(function(v) {
-    return /Samantha|Karen|Google US English|Microsoft Aria|Zira/i.test(v.name);
-  }) || voices.find(function(v) { return v.lang === 'en-US'; });
-  if (preferred) utt.voice = preferred;
-
-  utt.onend = function() {
-    btn.textContent = '🔊 Read Aloud';
-    btn.classList.remove('speaking', 'paused');
-    btn._speaking = false;
-  };
-  utt.onerror = function() {
-    btn.textContent = '🔊 Read Aloud';
-    btn.classList.remove('speaking', 'paused');
-    btn._speaking = false;
-  };
+  const title = titleEl.textContent.trim();
+  const body  = bodyEl.textContent.trim();
+  if (!body) return;
 
   btn._speaking = true;
   btn.textContent = '⏸ Pause';
   btn.classList.add('speaking');
-  window.speechSynthesis.speak(utt);
+
+  speakWithPause(
+    title,
+    body,
+    function() { btn.textContent = '🔊 Read Aloud'; btn.classList.remove('speaking','paused'); btn._speaking = false; },
+    function() { btn.textContent = '🔊 Read Aloud'; btn.classList.remove('speaking','paused'); btn._speaking = false; }
+  );
 };
 
 // Default to step 1 on load
