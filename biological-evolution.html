@@ -765,6 +765,9 @@
               <div class="cy-detail-step" id="cy-detail-step"></div>
               <div class="cy-detail-title" id="cy-detail-title"></div>
               <div class="cy-detail-body" id="cy-detail-body"></div>
+              <div style="margin-top: 1rem;">
+                <button class="read-aloud-btn" id="cy-read-btn" onclick="toggleCycleRead(this)" aria-label="Read this step aloud">🔊 Read Aloud</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1348,7 +1351,7 @@ buildQuiz(1);
     if (!text) return;
 
     utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate  = 0.92;   // Slightly slower for accessibility
+    utterance.rate  = 0.82;   // Slower for accessibility / IEP support
     utterance.pitch = 1;
     utterance.lang  = 'en-US';
 
@@ -1430,6 +1433,15 @@ let activeNode = null;
 function cycleClick(num) {
   const step = cycleSteps[num];
 
+  // Reset cycle read button whenever a new node is clicked
+  const cyBtn = document.getElementById('cy-read-btn');
+  if (cyBtn) {
+    window.speechSynthesis.cancel();
+    cyBtn.textContent = '🔊 Read Aloud';
+    cyBtn.classList.remove('speaking', 'paused');
+    cyBtn._speaking = false;
+  }
+
   // Update detail panel
   document.getElementById('cy-detail-step').textContent  = step.label;
   document.getElementById('cy-detail-title').textContent = step.title;
@@ -1445,6 +1457,68 @@ function cycleClick(num) {
   }
   activeNode = num;
 }
+
+window.toggleCycleRead = function(btn) {
+  // If speaking, pause/resume
+  if (btn._speaking) {
+    if (window.speechSynthesis.paused) {
+      window.speechSynthesis.resume();
+      btn.textContent = '⏸ Pause';
+      btn.classList.remove('paused');
+      btn.classList.add('speaking');
+    } else if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.pause();
+      btn.textContent = '▶ Resume';
+      btn.classList.remove('speaking');
+      btn.classList.add('paused');
+    } else {
+      btn.textContent = '🔊 Read Aloud';
+      btn.classList.remove('speaking', 'paused');
+      btn._speaking = false;
+    }
+    return;
+  }
+
+  // Stop any card reading in progress
+  window.speechSynthesis.cancel();
+  // Also reset any active card button
+  document.querySelectorAll('.read-aloud-btn').forEach(function(b) {
+    if (b !== btn) { b.textContent = '🔊 Read Aloud'; b.classList.remove('speaking','paused'); }
+  });
+
+  // Build text from the current step
+  const titleEl = document.getElementById('cy-detail-title');
+  const bodyEl  = document.getElementById('cy-detail-body');
+  if (!titleEl || !bodyEl) return;
+  const text = (titleEl.textContent + '. ' + bodyEl.textContent).trim();
+  if (!text) return;
+
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.rate  = 0.82;
+  utt.pitch = 1;
+  utt.lang  = 'en-US';
+  const voices = window.speechSynthesis.getVoices();
+  const preferred = voices.find(function(v) {
+    return /Samantha|Karen|Google US English|Microsoft Aria|Zira/i.test(v.name);
+  }) || voices.find(function(v) { return v.lang === 'en-US'; });
+  if (preferred) utt.voice = preferred;
+
+  utt.onend = function() {
+    btn.textContent = '🔊 Read Aloud';
+    btn.classList.remove('speaking', 'paused');
+    btn._speaking = false;
+  };
+  utt.onerror = function() {
+    btn.textContent = '🔊 Read Aloud';
+    btn.classList.remove('speaking', 'paused');
+    btn._speaking = false;
+  };
+
+  btn._speaking = true;
+  btn.textContent = '⏸ Pause';
+  btn.classList.add('speaking');
+  window.speechSynthesis.speak(utt);
+};
 
 // Default to step 1 on load
 window.addEventListener('DOMContentLoaded', function() { cycleClick(1); });
