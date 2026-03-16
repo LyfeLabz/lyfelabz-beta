@@ -1389,6 +1389,10 @@ buildQuiz(1);
     window.speechSynthesis.speak(uttBody);
   }
 
+  // Expose helpers globally so toggleCycleRead (outer script) can reach them
+  window.speakWithPause   = speakWithPause;
+  window.getPreferredVoice = getPreferredVoice;
+
   window.toggleRead = function(cardId, btn) {
     // If this card is currently speaking, toggle pause/resume
     if (activeCard === cardId) {
