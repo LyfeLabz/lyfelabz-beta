@@ -737,6 +737,38 @@
     transition: all 0.25s;
   }
   .btn-extension:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(155,89,182,0.5); }
+
+  /* ── READ ALOUD BUTTON ── */
+  .read-aloud-btn {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-family: 'Nunito', sans-serif; font-size: 0.72rem; font-weight: 800;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 0.32rem 0.85rem; border-radius: 99px; cursor: pointer;
+    border: 1px solid rgba(59,200,232,0.45);
+    background: rgba(59,200,232,0.1); color: var(--accent);
+    text-shadow: 0 0 8px rgba(59,200,232,0.55);
+    box-shadow: 0 0 8px rgba(59,200,232,0.18), inset 0 0 6px rgba(59,200,232,0.05);
+    transition: all 0.25s; white-space: nowrap; align-self: flex-start; margin-top: 0.6rem;
+  }
+  .read-aloud-btn:hover {
+    background: rgba(59,200,232,0.22); border-color: rgba(59,200,232,0.8);
+    text-shadow: 0 0 12px rgba(59,200,232,0.85);
+    box-shadow: 0 0 16px rgba(59,200,232,0.42), 0 0 32px rgba(59,200,232,0.18), inset 0 0 8px rgba(59,200,232,0.1);
+  }
+  .read-aloud-btn.speaking {
+    background: rgba(29,233,182,0.12); border-color: rgba(29,233,182,0.6); color: var(--teal);
+    text-shadow: 0 0 10px rgba(29,233,182,0.8);
+    animation: ra-pulse 1.6s ease-in-out infinite;
+  }
+  .read-aloud-btn.paused {
+    background: rgba(245,200,66,0.1); border-color: rgba(245,200,66,0.55); color: var(--gold);
+    text-shadow: 0 0 8px rgba(245,200,66,0.7);
+    box-shadow: 0 0 10px rgba(245,200,66,0.22);
+  }
+  @keyframes ra-pulse {
+    0%,100% { box-shadow: 0 0 10px rgba(29,233,182,0.28), 0 0 22px rgba(29,233,182,0.1); }
+    50%      { box-shadow: 0 0 20px rgba(29,233,182,0.52), 0 0 40px rgba(29,233,182,0.22); }
+  }
 </style>
 <style>
 /* ── Learning Science Badges (inline) ── */
@@ -1245,59 +1277,67 @@ body.stem-active .stem-detail {
 
         <div class="systems-grid">
 
-      <div class="system-card circulatory">
+      <div class="system-card circulatory" id="sc-circulatory">
         <span class="system-icon">🫀</span>
         <div class="system-name">Circulatory System</div>
         <div class="system-desc">The <strong>heart</strong> pumps blood through <strong>arteries</strong> and <strong>veins</strong>, transporting oxygen, nutrients, and waste to and from cells throughout the body.</div>
+        <button class="read-aloud-btn" onclick="toggleCardRead('sc-circulatory',this)">🔊 Read Aloud</button>
         <a href="system_circulatory.html" class="explore-btn">Explore Interactive Map</a>
       </div>
 
-      <div class="system-card digestive">
+      <div class="system-card digestive" id="sc-digestive">
         <span class="system-icon">🫄</span>
         <div class="system-name">Digestive System</div>
         <div class="system-desc">Breaks down food as it moves from the <strong>mouth</strong> → <strong>stomach</strong> → <strong>small intestine</strong>, absorbing nutrients into the bloodstream while the <strong>large intestine</strong> removes solid waste.</div>
+        <button class="read-aloud-btn" onclick="toggleCardRead('sc-digestive',this)">🔊 Read Aloud</button>
         <a href="system_digestive.html" class="explore-btn">Explore Interactive Map</a>
       </div>
 
-      <div class="system-card respiratory">
+      <div class="system-card respiratory" id="sc-respiratory">
         <span class="system-icon">🫁</span>
         <div class="system-name">Respiratory System</div>
         <div class="system-desc">Moves air in and out of the body as oxygen enters the <strong>lungs</strong> and passes into the blood, while carbon dioxide waste is exhaled.</div>
+        <button class="read-aloud-btn" onclick="toggleCardRead('sc-respiratory',this)">🔊 Read Aloud</button>
         <a href="system_respiratory.html" class="explore-btn">Explore Interactive Map</a>
       </div>
 
-      <div class="system-card excretory">
+      <div class="system-card excretory" id="sc-excretory">
         <span class="system-icon">🚽</span>
         <div class="system-name">Excretory System</div>
         <div class="system-desc">Removes solid, liquid, and gaseous wastes from the body through the <strong>large intestine</strong>, <strong>bladder</strong>, and <strong>lungs</strong>, helping maintain homeostasis.</div>
+        <button class="read-aloud-btn" onclick="toggleCardRead('sc-excretory',this)">🔊 Read Aloud</button>
         <a href="system_excretory.html" class="explore-btn">Explore Interactive Map</a>
       </div>
 
-      <div class="system-card skeletal">
+      <div class="system-card skeletal" id="sc-skeletal">
         <span class="system-icon">🦴</span>
         <div class="system-name">Skeletal System</div>
         <div class="system-desc">Provides structure, protects organs, and supports movement as <strong>bones</strong> give the body its shape and <strong>bone marrow</strong> inside them produces blood cells.</div>
+        <button class="read-aloud-btn" onclick="toggleCardRead('sc-skeletal',this)">🔊 Read Aloud</button>
         <a href="system_skeletal.html" class="explore-btn">Explore Interactive Map</a>
       </div>
 
-      <div class="system-card muscular">
+      <div class="system-card muscular" id="sc-muscular">
         <span class="system-icon">💪</span>
         <div class="system-name">Muscular System</div>
         <div class="system-desc">Allows movement of the body and materials through it using <strong>skeletal muscle</strong> to move bones, <strong>cardiac muscle</strong> to pump the heart, and <strong>smooth muscle</strong> to push materials through organs.</div>
+        <button class="read-aloud-btn" onclick="toggleCardRead('sc-muscular',this)">🔊 Read Aloud</button>
         <a href="system_muscular.html" class="explore-btn">Explore Interactive Map</a>
       </div>
 
-      <div class="system-card nervous">
+      <div class="system-card nervous" id="sc-nervous">
         <span class="system-icon">🧠</span>
         <div class="system-name">Nervous System</div>
         <div class="system-desc">Detects, interprets, and responds to information as the <strong>brain</strong> acts as the control center, the <strong>spinal cord</strong> relays signals, and <strong>neurons</strong> carry electrical signals throughout the body.</div>
+        <button class="read-aloud-btn" onclick="toggleCardRead('sc-nervous',this)">🔊 Read Aloud</button>
         <a href="system_nervous.html" class="explore-btn">Explore Interactive Map</a>
       </div>
 
-      <div class="system-card immune">
+      <div class="system-card immune" id="sc-immune">
         <span class="system-icon">🛡️</span>
         <div class="system-name">Immune System</div>
         <div class="system-desc">Defends the body against harmful bacteria, viruses, and parasites as <strong>white blood cells</strong> attack foreign invaders and <strong>lymph nodes</strong> filter germs from cells, tissues, and blood.</div>
+        <button class="read-aloud-btn" onclick="toggleCardRead('sc-immune',this)">🔊 Read Aloud</button>
         <a href="system_immune.html" class="explore-btn">Explore Interactive Map</a>
       </div>
 
@@ -1822,6 +1862,113 @@ function resetQuiz(num) {
 
 buildQuiz(1);
 </script>
+<!-- READ ALOUD — Web Speech API -->
+<script>
+(function() {
+  var activeCard = null;
+  var activeBtn  = null;
+
+  function getPreferredVoice() {
+    var voices = window.speechSynthesis.getVoices();
+    return voices.find(function(v) {
+      return /Samantha|Karen|Google US English|Microsoft Aria|Zira/i.test(v.name);
+    }) || voices.find(function(v) {
+      return v.lang === 'en-US' && !v.name.toLowerCase().includes('compact');
+    });
+  }
+
+  function resetBtn(btn) {
+    btn.textContent = '🔊 Read Aloud';
+    btn.classList.remove('speaking', 'paused');
+  }
+
+  function stopAll() {
+    window.speechSynthesis.cancel();
+    if (activeBtn) resetBtn(activeBtn);
+    activeCard = null;
+    activeBtn  = null;
+  }
+
+  function speakCard(cardId, btn) {
+    var card = document.getElementById(cardId);
+    if (!card) return;
+
+    var nameEl = card.querySelector('.system-name');
+    var descEl = card.querySelector('.system-desc');
+    var title  = nameEl ? nameEl.textContent.trim() : '';
+    var body   = descEl ? descEl.textContent.trim() : '';
+    if (!body) return;
+
+    var voice = getPreferredVoice();
+
+    function makeUtt(text, rate, vol) {
+      var u = new SpeechSynthesisUtterance(text);
+      u.rate = rate; u.pitch = 1; u.lang = 'en-US'; u.volume = vol;
+      if (voice) u.voice = voice;
+      return u;
+    }
+
+    var uttTitle = makeUtt(title, 0.82, 1);
+    var uttPause = makeUtt('...', 0.1,  0);   // silent ~700ms gap
+    var uttBody  = makeUtt(body,  0.82, 1);
+
+    uttBody.onend = function() {
+      if (activeBtn) resetBtn(activeBtn);
+      activeCard = null; activeBtn = null;
+    };
+    uttBody.onerror = function() {
+      if (activeBtn) resetBtn(activeBtn);
+      activeCard = null; activeBtn = null;
+    };
+
+    activeCard = cardId;
+    activeBtn  = btn;
+    btn.textContent = '⏸ Pause';
+    btn.classList.add('speaking');
+
+    window.speechSynthesis.speak(uttTitle);
+    window.speechSynthesis.speak(uttPause);
+    window.speechSynthesis.speak(uttBody);
+  }
+
+  window.toggleCardRead = function(cardId, btn) {
+    // Same card — toggle pause/resume
+    if (activeCard === cardId) {
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+        btn.textContent = '⏸ Pause';
+        btn.classList.remove('paused');
+        btn.classList.add('speaking');
+      } else if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.pause();
+        btn.textContent = '▶ Resume';
+        btn.classList.remove('speaking');
+        btn.classList.add('paused');
+      } else {
+        stopAll();
+      }
+      return;
+    }
+    // Different card — stop current, start new
+    stopAll();
+    speakCard(cardId, btn);
+  };
+
+  // Stop on page navigation
+  window.addEventListener('beforeunload', function() {
+    window.speechSynthesis.cancel();
+  });
+
+  // Chrome 15s bug workaround
+  setInterval(function() {
+    if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+      window.speechSynthesis.pause();
+      window.speechSynthesis.resume();
+    }
+  }, 12000);
+})();
+</script>
+
 <script>if(sessionStorage.getItem('lyfelabz-ls')==='on')document.body.classList.add('ls-active');if(sessionStorage.getItem('lyfelabz-stem')==='on')document.body.classList.add('stem-active');if(sessionStorage.getItem('lyfelabz-stem')==='on')document.body.classList.add('stem-active');</script>
 </body>
 </html>
