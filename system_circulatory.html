@@ -135,6 +135,7 @@
   @media(max-width:600px){ nav{padding:0.8rem 1.2rem} .nav-center{display:none} .page-header{padding:1.6rem 1.2rem 1.3rem} .explorer-wrap{padding:1.2rem 1rem 2rem} }
 
   /* ── READ ALOUD ── */
+  .i-card-hd { justify-content: space-between; align-items: flex-start; }
   .read-aloud-btn {
     display: inline-flex; align-items: center; gap: 0.4rem;
     font-family: 'Nunito', sans-serif; font-size: 0.72rem; font-weight: 800;
@@ -144,7 +145,7 @@
     background: rgba(231,76,60,0.1); color: var(--accent);
     text-shadow: 0 0 8px rgba(231,76,60,0.5);
     box-shadow: 0 0 8px rgba(231,76,60,0.15);
-    transition: all 0.25s; white-space: nowrap; margin-top: 1rem;
+    transition: all 0.25s; white-space: nowrap; flex-shrink: 0;
   }
   .read-aloud-btn:hover {
     background: rgba(231,76,60,0.2); border-color: rgba(231,76,60,0.75);
@@ -487,13 +488,13 @@ body.stem-active .stem-detail {
               <div class="i-card-sys" id="c-sys">Circulatory System</div>
               <div class="i-card-name" id="c-name">Heart</div>
             </div>
+            <button class="read-aloud-btn" id="map-read-btn" onclick="toggleMapRead(this)">🔊 Read Aloud</button>
           </div>
           <div class="i-card-body">
             <div class="i-sec-lbl">🔬 Role in the Circulatory System</div>
             <div class="i-role" id="c-role"></div>
             
             <div class="i-fact" id="c-fact"></div>
-            <button class="read-aloud-btn" id="map-read-btn" onclick="toggleMapRead(this)">🔊 Read Aloud</button>
           </div>
         </div>
       </div>

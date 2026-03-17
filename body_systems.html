@@ -289,7 +289,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.75rem;
   }
   .system-card::before {
     content: '';
@@ -770,12 +770,13 @@
     50%      { box-shadow: 0 0 20px rgba(29,233,182,0.52), 0 0 40px rgba(29,233,182,0.22); }
   }
   /* system cards — button stacks below desc */
-  .system-card .read-aloud-btn { align-self: flex-start; margin-top: 0.6rem; }
-  /* conn-header — button pushed to right inside the header row */
-  .conn-header { justify-content: space-between; }
-  .conn-header .read-aloud-btn { flex-shrink: 0; font-size: 0.67rem; padding: 0.25rem 0.7rem; }
+  .system-card .read-aloud-btn { align-self: flex-start; }
+  /* conn-header — icon+name grouped left, button pushed right */
+  .conn-header { justify-content: flex-start; }
+  .conn-header-group { display: flex; align-items: center; gap: 0.65rem; flex: 1; }
+  .conn-header .read-aloud-btn { flex-shrink: 0; font-size: 0.67rem; padding: 0.25rem 0.7rem; margin-left: auto; }
   /* dis-card — button sits between desc and link */
-  .dis-card .read-aloud-btn { align-self: flex-start; margin-top: 0.5rem; }
+  .dis-card .read-aloud-btn { align-self: flex-start; }
 </style>
 <style>
 /* ── Learning Science Badges (inline) ── */
@@ -1085,7 +1086,7 @@ body.stem-active .stem-detail {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.75rem;
   transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
 }
 .dis-card::before {
@@ -1363,8 +1364,7 @@ body.stem-active .stem-detail {
       <!-- NERVOUS — spans full width, first ─────────────────────────────── -->
       <div class="conn-card nervous-featured">
         <div class="conn-header nervous">
-          <span class="conn-header-icon">🧠</span>
-          <span class="conn-header-name">Nervous — The Master Controller</span>
+          <div class="conn-header-group"><span class="conn-header-icon">🧠</span><span class="conn-header-name">Nervous — The Master Controller</span></div>
           <button class="read-aloud-btn" onclick="toggleGenericRead(this)" data-title="Nervous System — The Master Controller" data-body="The brain and spinal cord send and receive signals through neurons to coordinate every other system. Nothing in the body operates without nervous system involvement. Circulatory: Regulates heart rate and blood pressure through autonomic signals — speeding up during stress, slowing during rest. Muscular: Motor neurons carry signals from the brain to muscles, triggering every voluntary movement and reflex. Respiratory: Controls breathing rate and depth — adjusting oxygen intake based on activity level and carbon dioxide levels in the blood. Digestive: The enteric nervous system coordinates peristalsis, enzyme release, and appetite signals. Excretory: Sends signals to the bladder to control urination, and monitors blood chemistry to trigger kidney function adjustments. Immune: Communicates with immune cells via neurotransmitters — chronic stress suppresses immunity. Skeletal: Detects pain and pressure through sensory neurons in bones and joints, protecting the skeleton and guiding posture and balance.">🔊 Read Aloud</button>
         </div>
         <div class="nervous-intro">The brain and spinal cord send and receive signals through neurons to coordinate every other system. Nothing in the body operates without nervous system involvement.</div>
@@ -1403,8 +1403,7 @@ body.stem-active .stem-detail {
       <!-- CIRCULATORY -->
       <div class="conn-card">
         <div class="conn-header circulatory">
-          <span class="conn-header-icon">🫀</span>
-          <span class="conn-header-name">Circulatory</span>
+          <div class="conn-header-group"><span class="conn-header-icon">🫀</span><span class="conn-header-name">Circulatory</span></div>
           <button class="read-aloud-btn" onclick="toggleGenericRead(this)" data-title="Circulatory System" data-body="Respiratory: Blood picks up oxygen from the lungs and delivers it to every cell in the body. Digestive: Blood transports absorbed nutrients from the small intestine to cells throughout the body. Excretory: Blood carries metabolic waste products to excretory organs for removal. Immune: Blood vessels deliver white blood cells to sites of infection anywhere in the body.">🔊 Read Aloud</button>
         </div>
         <div class="conn-rows">
@@ -1430,8 +1429,7 @@ body.stem-active .stem-detail {
       <!-- MUSCULAR -->
       <div class="conn-card">
         <div class="conn-header muscular">
-          <span class="conn-header-icon">💪</span>
-          <span class="conn-header-name">Muscular</span>
+          <div class="conn-header-group"><span class="conn-header-icon">💪</span><span class="conn-header-name">Muscular</span></div>
           <button class="read-aloud-btn" onclick="toggleGenericRead(this)" data-title="Muscular System" data-body="Digestive: Smooth muscle in the digestive tract pushes food along through peristalsis. Circulatory: The heart is a muscle — cardiac muscle contraction pumps blood through the entire body; skeletal muscles also help push blood back through veins. Skeletal: Muscles attach to bones via tendons and pull on them to create all movement — neither system works without the other.">🔊 Read Aloud</button>
         </div>
         <div class="conn-rows">
@@ -1453,8 +1451,7 @@ body.stem-active .stem-detail {
       <!-- SKELETAL -->
       <div class="conn-card">
         <div class="conn-header skeletal">
-          <span class="conn-header-icon">🦴</span>
-          <span class="conn-header-name">Skeletal</span>
+          <div class="conn-header-group"><span class="conn-header-icon">🦴</span><span class="conn-header-name">Skeletal</span></div>
           <button class="read-aloud-btn" onclick="toggleGenericRead(this)" data-title="Skeletal System" data-body="Muscular: Muscles pull on bones via tendons to create movement at joints. Circulatory: Bone marrow produces red and white blood cells for the circulatory and immune systems.">🔊 Read Aloud</button>
         </div>
         <div class="conn-rows">
@@ -1472,8 +1469,7 @@ body.stem-active .stem-detail {
       <!-- RESPIRATORY -->
       <div class="conn-card">
         <div class="conn-header respiratory">
-          <span class="conn-header-icon">🫁</span>
-          <span class="conn-header-name">Respiratory</span>
+          <div class="conn-header-group"><span class="conn-header-icon">🫁</span><span class="conn-header-name">Respiratory</span></div>
           <button class="read-aloud-btn" onclick="toggleGenericRead(this)" data-title="Respiratory System" data-body="Excretory: The lungs remove carbon dioxide — a gaseous waste product — from the body when we exhale. Circulatory: Blood travels to the lungs to pick up oxygen and drop off carbon dioxide — the two systems are inseparable gas exchange partners.">🔊 Read Aloud</button>
         </div>
         <div class="conn-rows">
@@ -1491,8 +1487,7 @@ body.stem-active .stem-detail {
       <!-- DIGESTIVE -->
       <div class="conn-card">
         <div class="conn-header digestive">
-          <span class="conn-header-icon">🫄</span>
-          <span class="conn-header-name">Digestive</span>
+          <div class="conn-header-group"><span class="conn-header-icon">🫄</span><span class="conn-header-name">Digestive</span></div>
           <button class="read-aloud-btn" onclick="toggleGenericRead(this)" data-title="Digestive System" data-body="Immune: The gut lining is one of the body's largest immune barriers — gut bacteria and immune cells work together to block pathogens from entering the bloodstream. Excretory: Solid waste passes to the large intestine for elimination; the liver filters toxins from digested material before they reach general circulation.">🔊 Read Aloud</button>
         </div>
         <div class="conn-rows">
@@ -1510,8 +1505,7 @@ body.stem-active .stem-detail {
       <!-- EXCRETORY -->
       <div class="conn-card">
         <div class="conn-header excretory">
-          <span class="conn-header-icon">🚽</span>
-          <span class="conn-header-name">Excretory</span>
+          <div class="conn-header-group"><span class="conn-header-icon">🚽</span><span class="conn-header-name">Excretory</span></div>
           <button class="read-aloud-btn" onclick="toggleGenericRead(this)" data-title="Excretory System" data-body="Circulatory: The kidneys filter waste from the blood — receiving blood via the renal artery and returning clean blood via the renal vein. Respiratory: The lungs excrete carbon dioxide gas — a metabolic waste product — with every exhale, working alongside the kidneys to keep blood chemistry balanced.">🔊 Read Aloud</button>
         </div>
         <div class="conn-rows">
@@ -1529,8 +1523,7 @@ body.stem-active .stem-detail {
       <!-- IMMUNE -->
       <div class="conn-card">
         <div class="conn-header immune">
-          <span class="conn-header-icon">🛡️</span>
-          <span class="conn-header-name">Immune</span>
+          <div class="conn-header-group"><span class="conn-header-icon">🛡️</span><span class="conn-header-name">Immune</span></div>
           <button class="read-aloud-btn" onclick="toggleGenericRead(this)" data-title="Immune System" data-body="Skeletal: Red and white blood cells — including the immune system's key fighters — are produced in bone marrow inside the skeletal system. Circulatory: The bloodstream carries white blood cells and antibodies to any site of infection anywhere in the body.">🔊 Read Aloud</button>
         </div>
         <div class="conn-rows">
