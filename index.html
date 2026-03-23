@@ -400,7 +400,7 @@
 
   /* ===== SUBJECT BLOCKS ===== */
   #subjects { background: var(--ink2); }
-  .subject-block { margin-bottom: 2.8rem; }
+  .subject-block { margin-bottom: 1.2rem; }
   .subject-block:last-child { margin-bottom: 0; }
   .topic-group:last-child .subject-block:last-child { margin-bottom: 0; }
 
@@ -440,7 +440,7 @@
   /* Unit cards */
   .unit-row {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.2rem;
   }
   .unit-card {
@@ -608,6 +608,47 @@
   ::-webkit-scrollbar-track { background: var(--ink); }
   ::-webkit-scrollbar-thumb { background: var(--card2); border-radius: 3px; }
 
+  /* ===== HIDDEN ROOM: BEHAVIORAL SCIENCE ===== */
+  .psych-locked { display: none !important; }
+  body.psych-unlocked .psych-locked { display: revert !important; }
+
+  @keyframes psychReveal {
+    0%   { opacity: 0; transform: translateY(18px) scale(0.97); filter: blur(4px); }
+    60%  { opacity: 1; filter: blur(0); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  body.psych-unlocked .tg-psych {
+    animation: psychReveal 0.55s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  body.psych-unlocked .fp-topic[data-topic="behavioral-science"] {
+    animation: psychReveal 0.4s 0.1s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  #psych-toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(244,114,182,0.15);
+    border: 1px solid rgba(244,114,182,0.5);
+    color: var(--psych);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 0.6rem 1.4rem;
+    border-radius: 99px;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    white-space: nowrap;
+  }
+  #psych-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
   /* ===== FILTER TRANSITION ===== */
   .subject-block, .topic-group {
     transition: opacity 0.25s ease;
@@ -657,7 +698,7 @@
       <button class="filter-pill fp-topic" data-topic="earth-space">🌍 Earth &amp; Space</button>
       <button class="filter-pill fp-topic" data-topic="physical-science">⚡ Physical Science</button>
       <button class="filter-pill fp-topic" data-topic="tech-engineering">🔧 Tech &amp; Engineering</button>
-      <button class="filter-pill fp-topic" data-topic="behavioral-science">🧠 Behavioral Science</button>
+      <button class="filter-pill fp-topic psych-locked" data-topic="behavioral-science">🧠 Behavioral Science</button>
     </div>
   </div>
 
@@ -691,7 +732,7 @@
     <div class="section-eyebrow" style="color:var(--astro);background:rgba(180,127,255,0.1);border-color:rgba(180,127,255,0.3);">Explore</div>
     <h2 class="section-title">Choose Your Lab</h2>
     <div class="pill-legend">
-      <span class="legend-label">Each unit may include:</span>
+      <span class="legend-label">Each lab may include:</span>
       <span class="ulink live legend-pill">Lesson</span>
       <span class="ulink ext legend-pill">Extension</span>
       <span class="ulink game legend-pill">Game</span>
@@ -757,12 +798,20 @@
               <a href="body_systems.html#diseases" class="ulink dis">Disease Maps</a>
             </div>
           </div>
+          <div class="unit-card">
+            <div class="unit-top">
+              <div class="unit-name">Biological Evolution</div>
+              <div class="unit-desc">Natural selection, adaptation, evidence from fossils and DNA, and how life on Earth has changed over millions of years.</div>
+            </div>
+            <div class="unit-links">
+              <a href="biological-evolution.html" class="ulink live">Lesson</a>
+            </div>
+          </div>
         </div>
       </div>
 
     </div><!-- /tg-life -->
 
-    
     <!-- ─── TOPIC GROUP: EARTH & SPACE ────────────────────────── -->
     <div class="topic-group tg-earth" data-group="earth-space">
       <div class="topic-group-divider">
@@ -802,13 +851,6 @@
       <span id="geo" style="display:block; position:relative; top:-80px; visibility:hidden;"></span>
       <div class="subject-block" data-topic="earth-space" data-grades="6">
         <div class="unit-row">
-          <div class="unit-card">
-            <div class="unit-top">
-              <div class="unit-name">Biological Evolution</div>
-              <div class="unit-desc">Natural selection, adaptation, evidence from fossils and DNA, and how life on Earth has changed over millions of years.</div>
-            </div>
-            <div class="unit-links"><span class="coming-label">🚧 Coming Soon</span></div>
-          </div>
           <div class="unit-card">
             <div class="unit-top">
               <div class="unit-name">Layers of Time</div>
@@ -930,7 +972,7 @@
     </div><!-- /tg-tech -->
 
     <!-- ─── TOPIC GROUP: BEHAVIORAL SCIENCE ─────────────────── -->
-    <div class="topic-group tg-psych" data-group="behavioral-science">
+    <div class="topic-group tg-psych psych-locked" data-group="behavioral-science">
       <div class="topic-group-divider">
         <span class="topic-group-icon">🧠</span>
         <span class="topic-group-name">Behavioral Science</span>
@@ -1266,5 +1308,50 @@ function toggleStemMode() {
   resize();
   requestAnimationFrame(draw);
 </script>
+<!-- HIDDEN ROOM TOAST -->
+<div id="psych-toast">🧠 Behavioral Science unlocked</div>
+
+<!-- HIDDEN ROOM: type "psych" anywhere to reveal Behavioral Science -->
+<script>
+(function() {
+  var SEQ = 'psych';
+  var buf = '';
+  var TIMEOUT = 1800;
+  var timer = null;
+
+  function unlock() {
+    if (document.body.classList.contains('psych-unlocked')) return;
+    document.body.classList.add('psych-unlocked');
+    sessionStorage.setItem('lyfelabz-psych', 'on');
+    var toast = document.getElementById('psych-toast');
+    if (toast) {
+      toast.classList.add('show');
+      setTimeout(function() { toast.classList.remove('show'); }, 3200);
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    var tag = document.activeElement && document.activeElement.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || document.activeElement.isContentEditable) return;
+    if (e.key && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      buf += e.key.toLowerCase();
+      if (buf.length > SEQ.length) buf = buf.slice(-SEQ.length);
+      clearTimeout(timer);
+      timer = setTimeout(function() { buf = ''; }, TIMEOUT);
+      if (buf === SEQ) {
+        buf = '';
+        clearTimeout(timer);
+        unlock();
+      }
+    }
+  });
+
+  // Persist unlock for the session
+  if (sessionStorage.getItem('lyfelabz-psych') === 'on') {
+    document.body.classList.add('psych-unlocked');
+  }
+})();
+</script>
+
 </body>
 </html>
