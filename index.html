@@ -440,7 +440,7 @@
   /* Unit cards */
   .unit-row {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
     gap: 1.2rem;
   }
   .unit-card {
@@ -547,8 +547,6 @@
   }
   .legend-pill {
     pointer-events: none;
-    font-size: 0.72rem !important;
-    padding: 0.22rem 0.8rem !important;
   }
 
   .coming-label {
@@ -641,7 +639,7 @@
   <h1>
     <span class="word-lyfe">Lyfe</span><span class="word-labz">Labz</span>
   </h1>
-  <p class="hero-sub">Your interactive science classroom — explore every unit by grade and subject area. Find exactly what you need, right when you need it.</p>
+  <p class="hero-sub">Interactive science, built for middle school. Filter by grade and topic to find exactly what you're studying.</p>
 
   <!-- FILTER SYSTEM -->
   <div class="filter-wrap">
@@ -656,8 +654,8 @@
     <div class="filter-row" id="topic-filters">
       <button class="filter-pill fp-topic active" data-topic="all">All Topics</button>
       <button class="filter-pill fp-topic" data-topic="life-science">🌱 Life Science</button>
-      <button class="filter-pill fp-topic" data-topic="physical-science">⚡ Physical Science</button>
       <button class="filter-pill fp-topic" data-topic="earth-space">🌍 Earth &amp; Space</button>
+      <button class="filter-pill fp-topic" data-topic="physical-science">⚡ Physical Science</button>
       <button class="filter-pill fp-topic" data-topic="tech-engineering">🔧 Tech &amp; Engineering</button>
       <button class="filter-pill fp-topic" data-topic="behavioral-science">🧠 Behavioral Science</button>
     </div>
@@ -690,11 +688,10 @@
 <!-- SUBJECTS -->
 <section id="subjects">
   <div class="container">
-    <div class="section-eyebrow">All Units</div>
-    <h2 class="section-title">Find Your Subject</h2>
-    <p class="section-desc">Filter by your grade and topic area. New units are added throughout the school year!</p>
+    <div class="section-eyebrow" style="color:var(--astro);background:rgba(180,127,255,0.1);border-color:rgba(180,127,255,0.3);">Explore</div>
+    <h2 class="section-title">Choose Your Lab</h2>
     <div class="pill-legend">
-      <span class="legend-label">Each card may include:</span>
+      <span class="legend-label">Each unit may include:</span>
       <span class="ulink live legend-pill">Lesson</span>
       <span class="ulink ext legend-pill">Extension</span>
       <span class="ulink game legend-pill">Game</span>
@@ -706,7 +703,6 @@
       <div class="topic-group-divider">
         <span class="topic-group-icon">🌱</span>
         <span class="topic-group-name">Life Science</span>
-        <span class="topic-group-tag">MA STE Framework</span>
       </div>
 
       <!-- Life Science — Grade 6 -->
@@ -772,7 +768,6 @@
       <div class="topic-group-divider">
         <span class="topic-group-icon">🌍</span>
         <span class="topic-group-name">Earth &amp; Space</span>
-        <span class="topic-group-tag">MA STE Framework</span>
       </div>
 
       <!-- Astronomy — Grades 6–8 -->
@@ -838,7 +833,6 @@
       <div class="topic-group-divider">
         <span class="topic-group-icon">⚡</span>
         <span class="topic-group-name">Physical Science</span>
-        <span class="topic-group-tag">MA STE Framework</span>
       </div>
 
       <!-- Chemistry — Grade 8 -->
@@ -904,7 +898,6 @@
       <div class="topic-group-divider">
         <span class="topic-group-icon">🔧</span>
         <span class="topic-group-name">Tech &amp; Engineering</span>
-        <span class="topic-group-tag">MA STE Framework</span>
       </div>
 
       <!-- Science & Engineering Practices — All Grades -->
@@ -941,7 +934,6 @@
       <div class="topic-group-divider">
         <span class="topic-group-icon">🧠</span>
         <span class="topic-group-name">Behavioral Science</span>
-        <span class="topic-group-tag">MA STE Framework</span>
       </div>
 
       <span id="psych" style="display:block; position:relative; top:-80px; visibility:hidden;"></span>
