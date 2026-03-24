@@ -1355,5 +1355,19 @@ function toggleStemMode() {
 })();
 </script>
 
+<script>
+  /* Teacher hotkeys */
+  document.addEventListener('keydown', function(e) {
+    if (e.metaKey && e.ctrlKey && e.key === '/') {
+      e.preventDefault();
+      window.location.href = 'https://wonderbox.lyfelabz.com';
+    }
+    if (e.metaKey && e.ctrlKey && e.key === 'm') {
+      e.preventDefault();
+      window.location.href = 'https://mcas.lyfelabz.com';
+    }
+  });
+</script>
+
 </body>
 </html>
