@@ -15,6 +15,7 @@
 <title>LyfeLabz | Cell Types</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 <style>
+  html { font-size: 18px; }
   :root {
     --green: #2ecc71;
     --green-dark: #27ae60;
@@ -777,20 +778,29 @@ body.stem-active .stem-detail {
   #continue { background: var(--dark2); }
   .continue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; margin-top: 1.5rem; }
   .cont-card {
-    background: var(--card); border: 1px solid var(--border); border-radius: 18px;
-    padding: 1.6rem; display: flex; flex-direction: column; gap: 0.7rem;
-    text-decoration: none; transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    border-radius: 18px; padding: 1.6rem; display: flex; flex-direction: column; gap: 0.7rem;
+    text-decoration: none; position: relative; overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
   }
+  .cont-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  }
+  .cont-card.ext  { background: rgba(155,89,182,0.12); border: 1px solid rgba(155,89,182,0.35); }
+  .cont-card.game { background: rgba(61,220,132,0.1);  border: 1px solid rgba(61,220,132,0.35); }
+  .cont-card.map  { background: rgba(196,138,78,0.1);  border: 1px solid rgba(196,138,78,0.35); }
+  .cont-card.ext::before  { background: linear-gradient(90deg, #b47fff, #7c3aed); }
+  .cont-card.game::before { background: linear-gradient(90deg, #3ddc84, #1de9b6); }
+  .cont-card.map::before  { background: linear-gradient(90deg, #c48a4e, #f5c842); }
   .cont-card:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,0.4); }
-  .cont-card.ext:hover  { border-color: rgba(155,89,182,0.5); }
-  .cont-card.game:hover { border-color: rgba(61,220,132,0.5); }
-  .cont-card.map:hover  { border-color: rgba(196,138,78,0.5); }
+  .cont-card.ext:hover  { border-color: rgba(155,89,182,0.6); box-shadow: 0 14px 40px rgba(155,89,182,0.15); }
+  .cont-card.game:hover { border-color: rgba(61,220,132,0.6);  box-shadow: 0 14px 40px rgba(61,220,132,0.12); }
+  .cont-card.map:hover  { border-color: rgba(196,138,78,0.6);  box-shadow: 0 14px 40px rgba(196,138,78,0.12); }
   .cont-icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 0.3rem; }
-  .cont-card.ext  .cont-icon { background: rgba(155,89,182,0.15); }
-  .cont-card.game .cont-icon { background: rgba(61,220,132,0.12); }
-  .cont-card.map  .cont-icon { background: rgba(196,138,78,0.12); }
+  .cont-card.ext  .cont-icon { background: rgba(155,89,182,0.2); }
+  .cont-card.game .cont-icon { background: rgba(61,220,132,0.18); }
+  .cont-card.map  .cont-icon { background: rgba(196,138,78,0.18); }
   .cont-name { font-family: 'Fredoka One', cursive; font-size: 1.1rem; color: var(--text); }
-  .cont-desc { font-size: 0.86rem; color: var(--text-muted); line-height: 1.6; flex: 1; }
+  .cont-desc { font-size: 0.86rem; color: rgba(240,228,200,0.82); line-height: 1.6; flex: 1; }
 
   .cont-link {
     display: inline-flex; align-items: center;
@@ -821,7 +831,7 @@ body.stem-active .stem-detail {
     <li><a href="#quiz">Quiz</a></li>
     <li><a href="#continue">Continue</a></li>
   </ul>
-  <a href="index.html#bio" class="nav-back">← Biology</a>
+  <a href="index.html#lifesci" class="nav-back">← Life Science</a>
 </nav>
 
 <!-- HERO -->
@@ -830,7 +840,7 @@ body.stem-active .stem-detail {
   <span class="hero-cells">🔬</span>
   <span class="hero-cells">🧫</span>
   <span class="hero-cells">🧬</span>
-  <div class="hero-badge">Biology · Lesson 2</div>
+  <div class="hero-badge">Life Science · Lesson 2</div>
   <h1>Cell Types 🦠</h1>
   <p>Unicellular vs. multicellular, prokaryotic vs. eukaryotic — understand the building blocks of all living things.</p>
   <div class="driving-question">
@@ -962,8 +972,8 @@ body.stem-active .stem-detail {
   <div class="container">
     <span class="section-label">🚀 Keep Going</span>
     <h2 class="section-title">Continue Learning</h2>
-    <p class="section-desc">The lesson is just the beginning. Go deeper, test your skills, or see how it all connects.</p>
-    <div class="continue-grid">
+    <p class="section-desc" style="white-space:nowrap; max-width:none;">The lesson is just the beginning — go deeper, test your skills, or see how it all connects.</p>
+    <div class="continue-grid" style="text-align:left;">
       <a href="extensions_virus.html" class="cont-card ext">
         <div class="cont-icon">🔬</div>
         <div class="cont-name">Are Viruses Alive?</div>
@@ -982,7 +992,7 @@ body.stem-active .stem-detail {
 
 <footer>
   <div class="logo">🦠 LyfeLabz · Cell Types</div>
-  <p style="margin-bottom:0.5rem;">Part of the Biology unit · Lesson 2</p>
+  <p style="margin-bottom:0.5rem;">Part of the Life Science unit · Lesson 2</p>
   <p style="margin-top:0.6rem; margin-bottom:0.6rem;"><a href="index.html" style="color:var(--gold);text-decoration:none;font-size:0.78rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(245,200,66,0.4);background:rgba(245,200,66,0.08);padding:0.3rem 0.9rem;border-radius:99px;">← Learning Hub</a></p>
   <p>© 2026 LyfeLabz · Educational Use</p>
 </footer>
